@@ -1,0 +1,127 @@
+/* Originally create by Kiryu | https://www.kiryu.it | mail@nekomimi.it */
+/* Revised by RainySummer | https:/rainysummer.top | hi@rainysummer.top */
+
+@font-face {
+    font-family: 'segoeuil';
+    src: url('fonts/segoeuil.woff') format('woff');
+}
+
+html {
+    color: white;
+    background-color: #0078d7;
+}
+
+body {
+    font-family: 'segoeuil', sans-serif;
+    user-select: none;
+    text-align: left;
+    justify-content: center;
+}
+
+@media screen and (orientation: portrait) {
+    #main {
+        margin-left: 9vw;
+        width: 84%;
+    }
+
+    #emoticon {
+        font-size: 18vmin;
+        margin-top: 10vh;
+        margin-bottom: 4vh;
+    }
+
+    #desc {
+        font-size: 4.5vmin;
+        line-height: 7vmin;
+        margin-bottom: 4vh;
+    }
+
+    #progress {
+        font-size: 4vmin;
+        margin-bottom: 4vh;
+    }
+
+    #float {
+        display: inline-block;
+    }
+
+    #svg {
+        float: left;
+        width: 9vh;
+        margin-right: 3vmin;
+        margin-top: 1.4vmin;
+    }
+
+    #address {
+        font-size: 2vh;
+        line-height: 3vh;
+        margin-top: 0.3vh;
+        margin-bottom: 0;
+    }
+
+    #stopcode3 {
+        display: none;
+    }
+
+    #stopcode2 {
+        line-height: 6vmin;
+        margin-top: 8vmin;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    #main {
+        margin-left: 16vw;
+        width: 50vw;
+    }
+
+    #emoticon {
+        font-size: 18vmin;
+        margin-top: 6vh;
+        margin-bottom: 5vh;
+    }
+
+    #desc {
+        font-size: 4vmin;
+        margin-bottom: 5vh;
+    }
+
+    #progress {
+        font-size: 4vmin;
+        margin-bottom: 5vh;
+    }
+
+    #svg {
+        float: left;
+        height: 14.5vh;
+        margin-right: 1.5vw;
+    }
+
+    #address {
+        font-size: 2vh;
+        margin-top: 0;
+    }
+
+    #stopcode {
+        font-size: 2vh;
+        line-height: 4vh;
+    }
+
+    #stopcode2 {
+        display: none;
+    }
+
+    #stopcode3 {
+        font-size: 2vh;
+        margin-top: 3vh;
+    }
+}
+
+a:link, a:visited, a:link:active, a:visited:active {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
