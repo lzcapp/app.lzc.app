@@ -53,9 +53,7 @@
 <script>
     document.addEventListener("dblclick", function () {
         if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-            });
+            document.documentElement.requestFullscreen();
         } else {
             document.exitFullscreen();
         }
