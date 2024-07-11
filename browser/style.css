@@ -81,3 +81,7 @@ p {
 @media screen and (min-width: 768px) {
     .rwd-break { display: none; }
 }
+
+#emoji-list {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui !important;
+}
