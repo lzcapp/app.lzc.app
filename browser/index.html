@@ -1,0 +1,212 @@
+<!-- By RainySummer | https:/lzc.app | hi@lzc.app -->
+
+<html lang="">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>浏览器版本检测 Browser Info - LZC.app APP</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="ua-parser.js" type="text/javascript"></script>
+    <script src="serverdate.js" type="text/javascript"></script>
+    <script src="https://interface.bilibili.com/serverdate.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../lineawesome/css/line-awesome.min.css">
+    <link rel="shortcut icon" href="../ico/favicon.ico?v=47xGW9oLAB">
+</head>
+
+<body id="main">
+<script type="text/javascript">
+    const parser = new UAParser();
+    const result = parser.getResult();
+</script>
+<div id="container">
+    <p class="result">
+        Unix Timestamp: <span id="timestamp"></span><br/>
+        Server Time&nbsp;&nbsp;&nbsp;: <span id="server"></span><br/>
+        Local&nbsp; Time&nbsp;&nbsp;&nbsp;: <span id="locale"></span><br/>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;<span id="delta"></span>
+    </p>
+    <p class="result" id="useragent"></p>
+    <p class="result" id="mainresult">
+    <table>
+        <tr>
+            <td>Browser&nbsp;:</td>
+            <td><span id="name"></span></td>
+        </tr>
+        <tr>
+            <td>&nbsp;- Version&nbsp;:</td>
+            <td>&nbsp;&nbsp;<span class="version" id="version"></span></td>
+        </tr>
+        <tr>
+            <td>&nbsp;- Engine&nbsp;&nbsp;:</td>
+            <td>&nbsp;&nbsp;<span id="engine"></span>&ensp;<span class="version" id="engineversion"></span></td>
+        </tr>
+        <tr>
+            <td>OS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td><span id="os"></span>&ensp;<span class="version" id="osversion"></span></td>
+        </tr>
+        <tr>
+            <td>Device&nbsp;&nbsp;:</td>
+            <td><span id="device"></span>&ensp;-&ensp;<span id="devicevendor"></span>&ensp;<span class="version"
+                    id="devicemodel"></span></td>
+        </tr>
+        <tr>
+            <td>CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td><span id="cpu"></span></td>
+        </tr>
+        <tr>
+            <td>GPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td><span id="gpu"></span>&ensp;<span id="gpumodel"></span></td>
+        </tr>
+        <tr>
+            <td>Language:</td>
+            <td id="language"></td>
+        </tr>
+    </table>
+    </p>
+    <p class="result"></p>
+    <script type="text/javascript">
+        const ts = new Date(window.serverdate);
+        const dt = new Date();
+        const tt = ts - dt;
+
+        const servericon = document.createElement('i');
+        servericon.className = "las la-server";
+        const timestamp = document.getElementById('timestamp');
+        timestamp.innerText = "";
+        timestamp.append(servericon);
+        timestamp.append((window.serverdate / 1000).toString());
+
+        const clockicon = document.createElement('i');
+        clockicon.className = "las la-clock";
+        const serverdt = document.getElementById('server');
+        serverdt.innerText = "";
+        serverdt.append(clockicon);
+        serverdt.append(ts.toLocaleString());
+
+        const userclockicon = document.createElement('i');
+        userclockicon.className = "las la-user-clock";
+        const localdt = document.getElementById('locale');
+        localdt.innerText = "";
+        localdt.append(userclockicon);
+        localdt.append(dt.toLocaleString());
+
+        const deltadt = document.getElementById('delta');
+        if (tt > 0) {
+            deltadt.append("+");
+        }
+        deltadt.append(tt.toLocaleString());
+        deltadt.append(" ms");
+
+        document.getElementById('useragent').innerText = navigator.userAgent;
+
+        const browsername = document.getElementById('name');
+        const browseri = document.createElement('i');
+        const {version, name} = result.browser;
+        if (name.includes("Safari")) {
+            browseri.className = "lab la-safari";
+        } else {
+            browseri.className = "lab la-" + name;
+        }
+        browsername.append(browseri);
+        browsername.append(name);
+        document.getElementById('version').innerText = version;
+
+        document.getElementById('engine').innerText = result.engine.name;
+        document.getElementById('engineversion').innerText = result.engine.version;
+
+        const os = document.getElementById('os');
+        const {version: version1, name: name1} = result.os;
+        const osi = document.createElement('i');
+        if (name1 === "iOS") {
+            osi.className = "lab la-apple";
+        } else {
+            osi.className = "lab la-" + name1;
+        }
+        os.append(osi);
+        os.append(name1);
+        document.getElementById('osversion').innerText = version1;
+
+        const devicetypestr = result.device.type;
+        const devicetype = document.getElementById('device');
+        const devicetypei = document.createElement('i');
+        if (typeof devicetypestr !== "undefined") {
+            devicetypei.className = "las la-" + devicetypestr;
+        } else {
+            devicetypei.className = "las la-question-circle";
+        }
+        devicetype.append(devicetypei);
+        devicetype.append(devicetypestr);
+
+        const devicevendorstr = result.device.vendor;
+        const devicevendor = document.getElementById('devicevendor');
+        const devicevendori = document.createElement('i');
+        if (typeof devicevendorstr !== "undefined") {
+            devicevendori.className = "lab la-" + devicevendorstr;
+        } else {
+            devicevendori.className = "las la-question-circle";
+        }
+        devicevendor.append(devicevendori);
+        devicevendor.append(devicevendorstr);
+
+        document.getElementById('devicemodel').innerText = result.device.model;
+
+        const cpu = document.getElementById('cpu');
+        const cpui = document.createElement('i');
+        cpui.className = "las la-microchip";
+        cpu.append(cpui);
+        cpu.append(result.cpu.architecture);
+
+        document.getElementById('gpu').innerText = result.gpu.vendor;
+        document.getElementById('gpumodel').innerText = result.gpu.model;
+
+        for (const language of window.navigator.languages) {
+            const langspan = document.createElement('span');
+            const langi = document.createElement('i');
+            langi.className = "las la-language";
+            langspan.append(langi);
+            langspan.append(language);
+            const langp = document.getElementById('language');
+            langp.append(langspan);
+            langp.insertAdjacentHTML('beforeend', "&nbsp;");
+        }
+
+        function update() {
+            const ts = new Date(window.serverdate += 1000);
+            const dt = new Date();
+            const tt = ts - dt;
+
+            const servericon = document.createElement('i');
+            servericon.className = "las la-server";
+            const timestamp = document.getElementById('timestamp');
+            timestamp.innerText = "";
+            timestamp.append(servericon);
+            timestamp.append((window.serverdate / 1000).toString());
+
+            const clockicon = document.createElement('i');
+            clockicon.className = "las la-clock";
+            const serverdt = document.getElementById('server');
+            serverdt.innerText = "";
+            serverdt.append(clockicon);
+            serverdt.append(ts.toLocaleString());
+
+            const userclockicon = document.createElement('i');
+            userclockicon.className = "las la-user-clock";
+            const localdt = document.getElementById('locale');
+            localdt.innerText = "";
+            localdt.append(userclockicon);
+            localdt.append(dt.toLocaleString());
+
+            const deltadt = document.getElementById('delta');
+            deltadt.innerText = "";
+            if (tt > 0) {
+                deltadt.append("+");
+            }
+            deltadt.append(tt.toLocaleString());
+            deltadt.append(" ms");
+        }
+
+        setInterval(update, 1000);
+    </script>
+</div>
+</body>
+</html>
