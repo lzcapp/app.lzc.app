@@ -216,7 +216,7 @@ table th {
     font-size: large;
 }
 
-#emoji-list {
+.emoji-list {
     font-family: ui-monospace, SFMono-Regular, SF Mono,Menlo, Consolas, Liberation Mono, emoji;
     text-align: left;
     margin: auto;
