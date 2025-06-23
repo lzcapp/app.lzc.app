@@ -1,53 +1,53 @@
 @font-face {
     font-family: "FiraCode";
-    src: url("../fonts/FiraCode-VF.woff2") format("woff2");
+    src: url("./fonts/FiraCode-VF.woff2") format("woff2");
 }
 
 @font-face {
     font-family: "gilbert-color";
-    src: url("../fonts/l.woff2") format("woff2"), url("../fonts/d.woff") format("woff"), url("../fonts/a.otf") format("opentype");
+    src: url("./fonts/l.woff2") format("woff2"), url("./fonts/d.woff") format("woff"), url("./fonts/a.otf") format("opentype");
     font-display: auto;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Color Dot';
-    src: url("../fonts/ColorDot.otf") format("opentype");
+    src: url("./fonts/ColorDot.otf") format("opentype");
 }
 
 @font-face {
     font-family: "Pixelambacht Color";
-    src: url("../fonts/PixelambachtColor.ttf");
+    src: url("./fonts/PixelambachtColor.ttf");
 }
 
 @font-face {
     font-family: "Pixelambacht Color COLR";
-    src: url("../fonts/PixelambachtColor-colr.ttf");
+    src: url("./fonts/PixelambachtColor-colr.ttf");
 }
 
 @font-face {
     font-family: "Pixelambacht Color SBIX";
-    src: url("../fonts/PixelambachtColor-sbix.ttf");
+    src: url("./fonts/PixelambachtColor-sbix.ttf");
 }
 
 @font-face {
     font-family: "Pixelambacht Color SVG";
-    src: url("../fonts/PixelambachtColor-svg.ttf");
+    src: url("./fonts/PixelambachtColor-svg.ttf");
 }
 
 @font-face {
     font-family: "Twemoji SVG";
-    src: url("../fonts/emoji/TwitterColorEmoji-SVGinOT.ttf");
+    src: url("./fonts/emoji/TwitterColorEmoji-SVGinOT.ttf");
 }
 
 @font-face {
     font-family: "Twemoji CBDT";
-    src: url("../fonts/emoji/TwitterColorEmojiCBDT.ttf");
+    src: url("./fonts/emoji/TwitterColorEmojiCBDT.ttf");
 }
 
 @font-face {
     font-family: "Twemoji";
-    src: url("../fonts/emoji/TwemojiMozilla.ttf");
+    src: url("./fonts/emoji/TwemojiMozilla.ttf");
 }
 
 body {
