@@ -1,60 +1,237 @@
 <!-- By RainySummer | https:/lzc.app | hi@lzc.app -->
 
-<html lang="">
+<html lang="en">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <title>浏览器版本检测 Browser Info - LZC.app APP</title>
+    <title>Browser Info - LZC.app APP</title>
+    <meta name="description"
+          content="Detailed browser and system information including user agent, OS, device, CPU, GPU, and language.">
+    <meta name="keywords"
+          content="browser info, user agent, system info, OS detection, device detection, CPU, GPU, JavaScript">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="style.css" rel="stylesheet" type="text/css">
+    <!-- Essential scripts loaded synchronously before the main logic -->
     <script src="ua-parser.js" type="text/javascript"></script>
     <script src="serverdate.js" type="text/javascript"></script>
+    <!-- Asynchronous loading for external script, if its execution order is not critical -->
     <script src="https://interface.bilibili.com/serverdate.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="../lineawesome/css/line-awesome.min.css">
-    <link rel="shortcut icon" href="../ico/favicon.ico?v=47xGW9oLAB">
+    <!-- Updated Font Awesome CDN link for icons to display correctly -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="../ico/favicon.ico?v=47xGW9oLAB">
+    <!-- Tailwind CSS for modern styling and responsiveness (optional, but highly recommended for new projects) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add Inter font for a modern look, overriding JetBrains Mono if desired for main text */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        :root {
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --color-text-dark: #111;
+            --color-highlight-light: #e0f2f7; /* Light Cyan equivalent */
+            --color-highlight-medium: #fff9e6; /* Light Goldenrod Yellow equivalent */
+            --color-link: #260126;
+            --color-bg-body: #f9fafb; /* A light off-white background */
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 2rem; /* Responsive padding */
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120vh;
+            background-color: var(--color-bg-body);
+        }
+
+        #container {
+            max-width: 96%; /* Slightly increased max-width for larger screens */
+            width: 100%; /* Ensure it takes full width within max-width */
+            font-size: clamp(1.8vmin, 2.5vmin, 16px); /* Responsive font size */
+            background-color: white;
+            padding: 1.5rem 2rem; /* Adjusted padding */
+            border-radius: 1rem; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+        }
+
+        #useragent {
+            font-family: var(--font-mono),sans-serif;
+            padding: 0.75em 1em; /* Increased padding */
+            border-radius: 0.75em;
+            background-color: var(--color-highlight-light);
+            word-wrap: break-word; /* Allow long user agent strings to wrap */
+            text-align: left;
+        }
+
+        /* For user-agent table cell content span */
+        .user-agent-table #useragent {
+            margin-bottom: 0; /* Remove specific margin for this span within table cell */
+        }
+
+        span:not(#useragent) { /* Apply to other spans, but not #useragent */
+            padding: 0.3em 0.6em; /* Adjusted padding */
+            border-radius: 0.5em;
+            white-space: nowrap;
+            background-color: var(--color-highlight-light);
+            display: inline-flex; /* Use flex for inline spans to align icon and text */
+            align-items: center;
+        }
+
+        span.version {
+            background-color: var(--color-highlight-medium);
+        }
+
+        i {
+            padding-right: 0.4em;
+        }
+
+        table {
+            width: 100%; /* Make table take full width */
+            border-collapse: collapse; /* Remove double borders */
+            margin-bottom: 1em;
+            font-size: inherit; /* Inherit font size from container */
+        }
+
+        table.mainresult td {
+            padding: 0.3em 0.3em; /* Adjusted padding for main table cells */
+            line-height: normal; /* Reset line height */
+            text-align: left; /* Align text left */
+        }
+
+        /* Style for the first column (labels) in tables */
+        table.mainresult td:first-child {
+            font-weight: 500; /* Make labels slightly bolder */
+            width: 1%; /* Minimize width for labels */
+            white-space: nowrap; /* Prevent labels from wrapping */
+            padding-right: 1.5em;
+        }
+
+        a:link, a:visited, a:hover, a:active {
+            color: var(--color-link);
+            text-decoration: none; /* Remove underline */
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: #5b21b6; /* A slightly different hover color */
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media screen and (max-width: 767px) {
+            body {
+                padding: 1rem;
+            }
+
+            #container {
+                padding: 1rem;
+            }
+
+            span:not(#useragent) {
+                white-space: normal; /* Allow spans to wrap on small screens */
+            }
+
+            table.time-info tr,
+            table.mainresult tr,
+            .user-agent-table tr {
+                display: block; /* Stack table rows on small screens */
+                margin-bottom: 0.8em;
+            }
+
+            table.time-info td,
+            table.mainresult td,
+            .user-agent-table td {
+                display: block; /* Stack table cells on small screens */
+                padding: 0.2em 0;
+                white-space: normal; /* Allow all table cell content to wrap */
+            }
+
+            table.time-info td:first-child,
+            table.mainresult td:first-child,
+            .user-agent-table td:first-child {
+                padding-right: 0;
+                margin-bottom: 0.2em;
+                min-width: unset; /* Remove fixed width on small screens */
+            }
+
+            table.time-info td:last-child {
+                white-space: normal; /* Allow values to wrap on small screens */
+            }
+
+            .user-agent-table #useragent {
+                margin-bottom: 0;
+            }
+        }
+
+        caption {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body id="main">
-<script type="text/javascript">
-    const parser = new UAParser();
-    const result = parser.getResult();
-</script>
 <div id="container">
-    <p class="result">
-        Unix Timestamp: <span id="timestamp"></span><br/>
-        Server Time&nbsp;&nbsp;&nbsp;: <span id="server"></span><br/>
-        Local&nbsp; Time&nbsp;&nbsp;&nbsp;: <span id="locale"></span><br/>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;<span id="delta"></span>
-    </p>
-    <p class="result" id="useragent"></p>
-    <p class="result" id="mainresult">
-    <table>
+    <!-- Time Information Section, now within a table for consistent alignment -->
+    <table class="result-list mainresult">
+        <caption class="m-12">Time Info</caption>
         <tr>
-            <td>Browser&nbsp;:</td>
+            <td>Unix Timestamp:</td>
+            <td><span id="timestamp"></span></td>
+        </tr>
+        <tr>
+            <td>Server Time:</td>
+            <td><span id="server"></span></td>
+        </tr>
+        <tr>
+            <td>Local Time:</td>
+            <td><span id="locale"></span></td>
+        </tr>
+        <tr>
+            <td>Delta Time:</td>
+            <td><span id="delta"></span></td>
+        </tr>
+    </table>
+
+    <!-- User-Agent string section, now within a table for consistent alignment -->
+    <table class="result-list user-agent-table text-center">
+        <caption class="m-12">Your User-Agent String</caption>
+        <tr>
+            <td><span id="useragent"></span></td>
+        </tr>
+    </table>
+
+    <table class="result-list mainresult">
+        <caption class="m-12">Detailed System Information</caption>
+        <tr>
+            <td>Browser:</td>
             <td><span id="name"></span></td>
         </tr>
         <tr>
-            <td>&nbsp;- Version&nbsp;:</td>
-            <td>&nbsp;&nbsp;<span class="version" id="version"></span></td>
+            <td>- Version:</td>
+            <td><span class="version" id="version"></span></td>
         </tr>
         <tr>
-            <td>&nbsp;- Engine&nbsp;&nbsp;:</td>
-            <td>&nbsp;&nbsp;<span id="engine"></span>&ensp;<span class="version" id="engineversion"></span></td>
+            <td>- Engine:</td>
+            <td><span id="engine"></span>&ensp;<span class="version" id="engineversion"></span></td>
         </tr>
         <tr>
-            <td>OS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td>OS:</td>
             <td><span id="os"></span>&ensp;<span class="version" id="osversion"></span></td>
         </tr>
         <tr>
-            <td>Device&nbsp;&nbsp;:</td>
-            <td><span id="device"></span>&ensp;-&ensp;<span id="devicevendor"></span>&ensp;<span class="version"
-                    id="devicemodel"></span></td>
+            <td>Device:</td>
+            <td><span id="device"></span>&ensp;-&ensp;<span id="devicevendor"></span>&ensp;<span class="version" id="devicemodel"></span>
+            </td>
         </tr>
         <tr>
-            <td>CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td>CPU:</td>
             <td><span id="cpu"></span></td>
         </tr>
         <tr>
-            <td>GPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+            <td>GPU:</td>
             <td><span id="gpu"></span>&ensp;<span id="gpumodel"></span></td>
         </tr>
         <tr>
@@ -62,150 +239,198 @@
             <td id="language"></td>
         </tr>
     </table>
-    </p>
-    <p class="result"></p>
+
+    <!-- Main JavaScript Logic -->
     <script type="text/javascript">
-        const ts = new Date(window.serverdate);
-        const dt = new Date();
-        const tt = ts - dt;
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize UAParser after DOM is ready
+            const parser = new UAParser();
+            const result = parser.getResult();
 
-        const servericon = document.createElement('i');
-        servericon.className = "las la-server";
-        const timestamp = document.getElementById('timestamp');
-        timestamp.innerText = "";
-        timestamp.append(servericon);
-        timestamp.append((window.serverdate / 1000).toString());
-
-        const clockicon = document.createElement('i');
-        clockicon.className = "las la-clock";
-        const serverdt = document.getElementById('server');
-        serverdt.innerText = "";
-        serverdt.append(clockicon);
-        serverdt.append(ts.toLocaleString());
-
-        const userclockicon = document.createElement('i');
-        userclockicon.className = "las la-user-clock";
-        const localdt = document.getElementById('locale');
-        localdt.innerText = "";
-        localdt.append(userclockicon);
-        localdt.append(dt.toLocaleString());
-
-        const deltadt = document.getElementById('delta');
-        if (tt > 0) {
-            deltadt.append("+");
-        }
-        deltadt.append(tt.toLocaleString());
-        deltadt.append(" ms");
-
-        document.getElementById('useragent').innerText = navigator.userAgent;
-
-        const browsername = document.getElementById('name');
-        const browseri = document.createElement('i');
-        const {version, name} = result.browser;
-        if (name.includes("Safari")) {
-            browseri.className = "lab la-safari";
-        } else {
-            browseri.className = "lab la-" + name;
-        }
-        browsername.append(browseri);
-        browsername.append(name);
-        document.getElementById('version').innerText = version;
-
-        document.getElementById('engine').innerText = result.engine.name;
-        document.getElementById('engineversion').innerText = result.engine.version;
-
-        const os = document.getElementById('os');
-        const {version: version1, name: name1} = result.os;
-        const osi = document.createElement('i');
-        if (name1 === "iOS") {
-            osi.className = "lab la-apple";
-        } else {
-            osi.className = "lab la-" + name1;
-        }
-        os.append(osi);
-        os.append(name1);
-        document.getElementById('osversion').innerText = version1;
-
-        const devicetypestr = result.device.type;
-        const devicetype = document.getElementById('device');
-        const devicetypei = document.createElement('i');
-        if (typeof devicetypestr !== "undefined") {
-            devicetypei.className = "las la-" + devicetypestr;
-        } else {
-            devicetypei.className = "las la-question-circle";
-        }
-        devicetype.append(devicetypei);
-        devicetype.append(devicetypestr);
-
-        const devicevendorstr = result.device.vendor;
-        const devicevendor = document.getElementById('devicevendor');
-        const devicevendori = document.createElement('i');
-        if (typeof devicevendorstr !== "undefined") {
-            devicevendori.className = "lab la-" + devicevendorstr;
-        } else {
-            devicevendori.className = "las la-question-circle";
-        }
-        devicevendor.append(devicevendori);
-        devicevendor.append(devicevendorstr);
-
-        document.getElementById('devicemodel').innerText = result.device.model;
-
-        const cpu = document.getElementById('cpu');
-        const cpui = document.createElement('i');
-        cpui.className = "las la-microchip";
-        cpu.append(cpui);
-        cpu.append(result.cpu.architecture);
-
-        document.getElementById('gpu').innerText = result.gpu.vendor;
-        document.getElementById('gpumodel').innerText = result.gpu.model;
-
-        for (const language of window.navigator.languages) {
-            const langspan = document.createElement('span');
-            const langi = document.createElement('i');
-            langi.className = "las la-language";
-            langspan.append(langi);
-            langspan.append(language);
-            const langp = document.getElementById('language');
-            langp.append(langspan);
-            langp.insertAdjacentHTML('beforeend', "&nbsp;");
-        }
-
-        function update() {
-            const ts = new Date(window.serverdate += 1000);
-            const dt = new Date();
-            const tt = ts - dt;
-
-            const servericon = document.createElement('i');
-            servericon.className = "las la-server";
-            const timestamp = document.getElementById('timestamp');
-            timestamp.innerText = "";
-            timestamp.append(servericon);
-            timestamp.append((window.serverdate / 1000).toString());
-
-            const clockicon = document.createElement('i');
-            clockicon.className = "las la-clock";
-            const serverdt = document.getElementById('server');
-            serverdt.innerText = "";
-            serverdt.append(clockicon);
-            serverdt.append(ts.toLocaleString());
-
-            const userclockicon = document.createElement('i');
-            userclockicon.className = "las la-user-clock";
-            const localdt = document.getElementById('locale');
-            localdt.innerText = "";
-            localdt.append(userclockicon);
-            localdt.append(dt.toLocaleString());
-
-            const deltadt = document.getElementById('delta');
-            deltadt.innerText = "";
-            if (tt > 0) {
-                deltadt.append("+");
+            /**
+             * Helper function to create a span element with an icon and text.
+             * @param {string} iconClass - The Font Awesome icon class (e.g., "fa-solid fa-server").
+             * @param {string} textContent - The text to display.
+             * @returns {HTMLSpanElement} The created span element.
+             */
+            function createIconSpan(iconClass, textContent) {
+                const span = document.createElement('span');
+                const icon = document.createElement('i');
+                icon.className = iconClass;
+                span.append(icon);
+                span.append(textContent || 'Unknown'); // Fallback for undefined/null text
+                return span;
             }
-            deltadt.append(tt.toLocaleString());
-            deltadt.append(" ms");
-        }
 
-        setInterval(update, 1000);
+            /**
+             * Updates the time-related information (Unix Timestamp, Server Time, Local Time, Delta).
+             */
+            function updateTimeDisplay() {
+                // Ensure window.serverdate is available from serverdate.js
+                // Add a safeguard in case serverdate.js hasn't loaded yet or failed
+                if (typeof window.serverdate === 'undefined') {
+                    console.error("window.serverdate is not defined. serverdate.js might not have loaded.");
+                    document.getElementById('timestamp').innerText = "Loading...";
+                    document.getElementById('server').innerText = "Loading...";
+                    document.getElementById('locale').innerText = "Loading...";
+                    document.getElementById('delta').innerText = "Loading...";
+                    return;
+                }
+
+                // Increment server date by 1 second for live update simulation
+                const serverTime = new Date(window.serverdate += 1000);
+                const localTime = new Date();
+                const deltaTime = serverTime - localTime; // Difference in milliseconds
+
+                // Update Unix Timestamp
+                const timestampElement = document.getElementById('timestamp');
+                timestampElement.innerHTML = ''; // Clear previous content
+                timestampElement.append(createIconSpan("fa-solid fa-server", (window.serverdate / 1000).toFixed(0))); // Display as seconds
+
+                // Update Server Time
+                const serverDtElement = document.getElementById('server');
+                serverDtElement.innerHTML = ''; // Clear previous content
+                serverDtElement.append(createIconSpan("fa-solid fa-clock", serverTime.toLocaleString()));
+
+                // Update Local Time
+                const localDtElement = document.getElementById('locale');
+                localDtElement.innerHTML = ''; // Clear previous content
+                localDtElement.append(createIconSpan("fa-solid fa-user-clock", localTime.toLocaleString()));
+
+                // Update Delta Time
+                const deltaDtElement = document.getElementById('delta');
+                deltaDtElement.innerHTML = ''; // Clear previous content
+                if (deltaTime > 0) {
+                    deltaDtElement.append("+");
+                }
+                deltaDtElement.append(deltaTime.toLocaleString());
+                deltaDtElement.append(" ms");
+            }
+
+            /**
+             * Populates the browser and system information based on UAParser results.
+             */
+            function populateDeviceInfo() {
+                // Display User Agent String
+                document.getElementById('useragent').innerText = navigator.userAgent;
+
+                // Browser Name and Version
+                const browserNameElement = document.getElementById('name');
+                const browserVersionElement = document.getElementById('version');
+                const {name: browserName, version: browserVersion} = result.browser;
+
+                let browserIconClass = "fa-solid fa-question-circle"; // Default generic icon
+                // Determine specific browser icon based on name
+                if (browserName) {
+                    const lowerBrowserName = browserName.toLowerCase();
+                    if (lowerBrowserName.includes("safari")) {
+                        browserIconClass = "fa-brands fa-safari";
+                    } else if (lowerBrowserName.includes("chrome")) {
+                        browserIconClass = "fa-brands fa-chrome";
+                    } else if (lowerBrowserName.includes("firefox")) {
+                        browserIconClass = "fa-brands fa-firefox";
+                    } else if (lowerBrowserName.includes("edge")) {
+                        browserIconClass = "fa-brands fa-edge";
+                    } else if (lowerBrowserName.includes("opera")) {
+                        browserIconClass = "fa-brands fa-opera";
+                    } else if (lowerBrowserName.includes("ie")) {
+                        browserIconClass = "fa-brands fa-internet-explorer";
+                    } else if (lowerBrowserName.includes("samsung browser")) {
+                        browserIconClass = "fa-brands fa-samsung";
+                    }
+                    // Add more conditions for other popular browsers as needed
+                }
+                browserNameElement.innerHTML = ''; // Clear existing content
+                browserNameElement.append(createIconSpan(browserIconClass, browserName || 'Unknown Browser'));
+                browserVersionElement.innerText = browserVersion || 'N/A';
+
+                // Browser Engine and Version
+                document.getElementById('engine').innerText = result.engine.name || 'Unknown Engine';
+                document.getElementById('engineversion').innerText = result.engine.version || 'N/A';
+
+                // Operating System Name and Version
+                const osElement = document.getElementById('os');
+                const osVersionElement = document.getElementById('osversion');
+                const {name: osName, version: osVersion} = result.os;
+
+                let osIconClass = "fa-solid fa-question-circle"; // Default generic icon
+                if (osName) {
+                    const lowerOsName = osName.toLowerCase();
+                    if (lowerOsName.includes("ios") || lowerOsName.includes("mac os")) {
+                        osIconClass = "fa-brands fa-apple";
+                    } else if (lowerOsName.includes("windows")) {
+                        osIconClass = "fa-brands fa-windows";
+                    } else if (lowerOsName.includes("android")) {
+                        osIconClass = "fa-brands fa-android";
+                    } else if (lowerOsName.includes("linux")) {
+                        osIconClass = "fa-brands fa-linux";
+                    } else if (lowerOsName.includes("ubuntu")) {
+                        osIconClass = "fa-brands fa-ubuntu";
+                    }
+                    // Add more conditions for other OSes
+                }
+                osElement.innerHTML = ''; // Clear existing content
+                osElement.append(createIconSpan(osIconClass, osName || 'Unknown OS'));
+                osVersionElement.innerText = osVersion || 'N/A';
+
+                // Device Type, Vendor, and Model
+                const deviceTypeElement = document.getElementById('device');
+                const deviceVendorElement = document.getElementById('devicevendor');
+                const deviceModelElement = document.getElementById('devicemodel');
+                const {type: deviceType, vendor: deviceVendor, model: deviceModel} = result.device;
+
+                let deviceIconClass = "fa-solid fa-question-circle";
+                if (deviceType) {
+                    const lowerDeviceType = deviceType.toLowerCase();
+                    if (lowerDeviceType.includes("mobile")) {
+                        deviceIconClass = "fa-solid fa-mobile-alt";
+                    } else if (lowerDeviceType.includes("tablet")) {
+                        deviceIconClass = "fa-solid fa-tablet-alt";
+                    } else if (lowerDeviceType.includes("desktop") || lowerDeviceType.includes("console") || lowerDeviceType.includes("smarttv")) {
+                        deviceIconClass = "fa-solid fa-desktop"; // General desktop/larger screen icon
+                    }
+                    // Add more specific icons if needed for types like console, smarttv, wearable
+                }
+                deviceTypeElement.innerHTML = '';
+                deviceTypeElement.append(createIconSpan(deviceIconClass, deviceType || 'Unknown Type'));
+
+                deviceVendorElement.innerHTML = '';
+                // No direct Font Awesome for many vendors, so use a generic icon or rely on text
+                deviceVendorElement.append(createIconSpan("fa-solid fa-industry", deviceVendor || 'Unknown Vendor'));
+
+                deviceModelElement.innerText = deviceModel || 'N/A';
+
+                // CPU Architecture
+                const cpuElement = document.getElementById('cpu');
+                cpuElement.innerHTML = '';
+                cpuElement.append(createIconSpan("fa-solid fa-microchip", result.cpu.architecture || 'Unknown'));
+
+                // GPU Vendor and Model
+                document.getElementById('gpu').innerText = result.gpu.vendor || 'Unknown GPU Vendor';
+                document.getElementById('gpumodel').innerText = result.gpu.model || 'N/A';
+
+                // Language(s)
+                const languageElement = document.getElementById('language');
+                languageElement.innerHTML = ''; // Clear existing content
+                if (window.navigator.languages && window.navigator.languages.length > 0) {
+                    window.navigator.languages.forEach((lang, index) => {
+                        languageElement.append(createIconSpan("fa-solid fa-language", lang));
+                        if (index < window.navigator.languages.length - 1) {
+                            languageElement.insertAdjacentHTML('beforeend', ""); // Add a space between language spans
+                        }
+                    });
+                } else {
+                    languageElement.append(createIconSpan("fa-solid fa-language", 'N/A'));
+                }
+            }
+
+            // Initial display of information
+            populateDeviceInfo();
+            updateTimeDisplay(); // Call once immediately to show initial time
+
+            // Set interval to update time every second
+            setInterval(updateTimeDisplay, 1000);
+        });
     </script>
 </div>
 </body>
