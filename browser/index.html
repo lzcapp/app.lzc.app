@@ -78,6 +78,7 @@
             background-color: var(--color-highlight-light);
             display: inline-flex; /* Use flex for inline spans to align icon and text */
             align-items: center;
+            height: 2em; /* Set a fixed height for consistent vertical spacing */
         }
 
         span.version {
@@ -249,7 +250,7 @@
 
             /**
              * Helper function to create a span element with an icon and text.
-             * @param {string} iconClass - The Font Awesome icon class (e.g., "fa-solid fa-server").
+             * @param {string} iconClass - The Font Awesome icon class (e.g., "fa-fw fa-solid fa-server").
              * @param {string} textContent - The text to display.
              * @returns {HTMLSpanElement} The created span element.
              */
@@ -258,6 +259,7 @@
                 const icon = document.createElement('i');
                 icon.className = iconClass;
                 span.append(icon);
+                span.innerHTML += '&nbsp;';
                 span.append(textContent || 'Unknown'); // Fallback for undefined/null text
                 return span;
             }
@@ -285,17 +287,17 @@
                 // Update Unix Timestamp
                 const timestampElement = document.getElementById('timestamp');
                 timestampElement.innerHTML = ''; // Clear previous content
-                timestampElement.append(createIconSpan("fa-solid fa-server", (window.serverdate / 1000).toFixed(0))); // Display as seconds
+                timestampElement.append(createIconSpan("fa-fw fa-solid fa-server", (window.serverdate / 1000).toFixed(0))); // Display as seconds
 
                 // Update Server Time
                 const serverDtElement = document.getElementById('server');
                 serverDtElement.innerHTML = ''; // Clear previous content
-                serverDtElement.append(createIconSpan("fa-solid fa-clock", serverTime.toLocaleString()));
+                serverDtElement.append(createIconSpan("fa-fw fa-solid fa-clock", serverTime.toLocaleString()));
 
                 // Update Local Time
                 const localDtElement = document.getElementById('locale');
                 localDtElement.innerHTML = ''; // Clear previous content
-                localDtElement.append(createIconSpan("fa-solid fa-user-clock", localTime.toLocaleString()));
+                localDtElement.append(createIconSpan("fa-fw fa-solid fa-user-clock", localTime.toLocaleString()));
 
                 // Update Delta Time
                 const deltaDtElement = document.getElementById('delta');
@@ -319,59 +321,59 @@
                 const browserVersionElement = document.getElementById('version');
                 const {name: browserName, version: browserVersion} = result.browser;
 
-                let browserIconClass = "fa-solid fa-question-circle"; // Default generic icon
+                let browserIconClass = "fa-fw fa-solid fa-question-circle"; // Default generic icon
                 // Determine specific browser icon based on name
                 if (browserName) {
                     const lowerBrowserName = browserName.toLowerCase();
                     if (lowerBrowserName.includes("safari")) {
-                        browserIconClass = "fa-brands fa-safari";
+                        browserIconClass = "fa-fw fa-brands fa-safari";
                     } else if (lowerBrowserName.includes("chrome")) {
-                        browserIconClass = "fa-brands fa-chrome";
+                        browserIconClass = "fa-fw fa-brands fa-chrome";
                     } else if (lowerBrowserName.includes("firefox")) {
-                        browserIconClass = "fa-brands fa-firefox";
+                        browserIconClass = "fa-fw fa-brands fa-firefox";
                     } else if (lowerBrowserName.includes("edge")) {
-                        browserIconClass = "fa-brands fa-edge";
+                        browserIconClass = "fa-fw fa-brands fa-edge";
                     } else if (lowerBrowserName.includes("opera")) {
-                        browserIconClass = "fa-brands fa-opera";
+                        browserIconClass = "fa-fw fa-brands fa-opera";
                     } else if (lowerBrowserName.includes("ie")) {
-                        browserIconClass = "fa-brands fa-internet-explorer";
+                        browserIconClass = "fa-fw fa-brands fa-internet-explorer";
                     } else if (lowerBrowserName.includes("samsung browser")) {
-                        browserIconClass = "fa-brands fa-samsung";
+                        browserIconClass = "fa-fw fa-brands fa-samsung";
                     }
                     // Add more conditions for other popular browsers as needed
                 }
                 browserNameElement.innerHTML = ''; // Clear existing content
                 browserNameElement.append(createIconSpan(browserIconClass, browserName || 'Unknown Browser'));
-                browserVersionElement.innerText = browserVersion || 'N/A';
+                browserVersionElement.innerText = browserVersion || 'Unknown';
 
                 // Browser Engine and Version
                 document.getElementById('engine').innerText = result.engine.name || 'Unknown Engine';
-                document.getElementById('engineversion').innerText = result.engine.version || 'N/A';
+                document.getElementById('engineversion').innerText = result.engine.version || 'Unknown';
 
                 // Operating System Name and Version
                 const osElement = document.getElementById('os');
                 const osVersionElement = document.getElementById('osversion');
                 const {name: osName, version: osVersion} = result.os;
 
-                let osIconClass = "fa-solid fa-question-circle"; // Default generic icon
+                let osIconClass = "fa-fw fa-solid fa-question-circle"; // Default generic icon
                 if (osName) {
                     const lowerOsName = osName.toLowerCase();
                     if (lowerOsName.includes("ios") || lowerOsName.includes("mac os")) {
-                        osIconClass = "fa-brands fa-apple";
+                        osIconClass = "fa-fw fa-brands fa-apple";
                     } else if (lowerOsName.includes("windows")) {
-                        osIconClass = "fa-brands fa-windows";
+                        osIconClass = "fa-fw fa-brands fa-windows";
                     } else if (lowerOsName.includes("android")) {
-                        osIconClass = "fa-brands fa-android";
+                        osIconClass = "fa-fw fa-brands fa-android";
                     } else if (lowerOsName.includes("linux")) {
-                        osIconClass = "fa-brands fa-linux";
+                        osIconClass = "fa-fw fa-brands fa-linux";
                     } else if (lowerOsName.includes("ubuntu")) {
-                        osIconClass = "fa-brands fa-ubuntu";
+                        osIconClass = "fa-fw fa-brands fa-ubuntu";
                     }
                     // Add more conditions for other OSes
                 }
                 osElement.innerHTML = ''; // Clear existing content
                 osElement.append(createIconSpan(osIconClass, osName || 'Unknown OS'));
-                osVersionElement.innerText = osVersion || 'N/A';
+                osVersionElement.innerText = osVersion || 'Unknown';
 
                 // Device Type, Vendor, and Model
                 const deviceTypeElement = document.getElementById('device');
@@ -379,15 +381,15 @@
                 const deviceModelElement = document.getElementById('devicemodel');
                 const {type: deviceType, vendor: deviceVendor, model: deviceModel} = result.device;
 
-                let deviceIconClass = "fa-solid fa-question-circle";
+                let deviceIconClass = "fa-fw fa-solid fa-question-circle";
                 if (deviceType) {
                     const lowerDeviceType = deviceType.toLowerCase();
                     if (lowerDeviceType.includes("mobile")) {
-                        deviceIconClass = "fa-solid fa-mobile-alt";
+                        deviceIconClass = "fa-fw fa-solid fa-mobile-alt";
                     } else if (lowerDeviceType.includes("tablet")) {
-                        deviceIconClass = "fa-solid fa-tablet-alt";
+                        deviceIconClass = "fa-fw fa-solid fa-tablet-alt";
                     } else if (lowerDeviceType.includes("desktop") || lowerDeviceType.includes("console") || lowerDeviceType.includes("smarttv")) {
-                        deviceIconClass = "fa-solid fa-desktop"; // General desktop/larger screen icon
+                        deviceIconClass = "fa-fw fa-solid fa-desktop"; // General desktop/larger screen icon
                     }
                     // Add more specific icons if needed for types like console, smarttv, wearable
                 }
@@ -396,31 +398,31 @@
 
                 deviceVendorElement.innerHTML = '';
                 // No direct Font Awesome for many vendors, so use a generic icon or rely on text
-                deviceVendorElement.append(createIconSpan("fa-solid fa-industry", deviceVendor || 'Unknown Vendor'));
+                deviceVendorElement.append(createIconSpan("fa-fw fa-solid fa-industry", deviceVendor || 'Unknown Vendor'));
 
-                deviceModelElement.innerText = deviceModel || 'N/A';
+                deviceModelElement.innerText = deviceModel || 'Unknown';
 
                 // CPU Architecture
                 const cpuElement = document.getElementById('cpu');
                 cpuElement.innerHTML = '';
-                cpuElement.append(createIconSpan("fa-solid fa-microchip", result.cpu.architecture || 'Unknown'));
+                cpuElement.append(createIconSpan("fa-fw fa-solid fa-microchip", result.cpu.architecture || 'Unknown'));
 
                 // GPU Vendor and Model
-                document.getElementById('gpu').innerText = result.gpu.vendor || 'Unknown GPU Vendor';
-                document.getElementById('gpumodel').innerText = result.gpu.model || 'N/A';
+                document.getElementById('gpu').append(createIconSpan("fa-fw fa-solid fa-microchip", result.gpu.vendor || 'Unknown GPU Vendor'));
+                document.getElementById('gpumodel').innerText = result.gpu.model || 'Unknown';
 
                 // Language(s)
                 const languageElement = document.getElementById('language');
                 languageElement.innerHTML = ''; // Clear existing content
                 if (window.navigator.languages && window.navigator.languages.length > 0) {
                     window.navigator.languages.forEach((lang, index) => {
-                        languageElement.append(createIconSpan("fa-solid fa-language", lang));
+                        languageElement.append(createIconSpan("fa-fw fa-solid fa-language", lang));
                         if (index < window.navigator.languages.length - 1) {
-                            languageElement.insertAdjacentHTML('beforeend', ""); // Add a space between language spans
+                            languageElement.innerHTML += '&ensp;';
                         }
                     });
                 } else {
-                    languageElement.append(createIconSpan("fa-solid fa-language", 'N/A'));
+                    languageElement.append(createIconSpan("fa-fw fa-solid fa-language", 'Unknown'));
                 }
             }
 
