@@ -176,16 +176,6 @@
 <!-- Apply global styles: light gray background, dark text, Inter font, antialiased for smoother text rendering -->
 <body class="bg-gray-100 text-gray-800 p-4 font-inter antialiased">
 
-<!-- Header section: centered text, padding, bottom margin -->
-<header id="header" class="text-center py-4 mb-8 bg-white rounded-lg shadow-sm">
-    <a href="https://www.lzc.app" target="_blank"
-       class="text-blue-600 hover:underline hover:text-blue-800 transition-colors duration-200">LZC.app</a>&nbsp;&nbsp;🔗
-    <br class="mb-2"/>
-    <a href="https://app.lzc.app/browser/" target="_blank"
-       class="text-blue-600 hover:underline hover:text-blue-800 transition-colors duration-200">浏览器内核测试 Browser
-        Info</a>&nbsp;&nbsp;🔗
-</header>
-
 <!-- Main content container: max-w-4xl, horizontally centered, white background, padding, rounded corners, shadow, bottom margin -->
 <main class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mb-8">
 
@@ -262,6 +252,15 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- New Slider for Font Weight Adjustment -->
+        <div class="flex flex-col items-center justify-center p-4 max-w-xl mx-auto">
+            <p id="adjustableText" class="text-6xl mb-6 transition-all duration-100 ease-in-out">Aa</p>
+            <div class="flex items-center space-x-4 w-full">
+                <label for="fontWeightSlider"></label><input type="range" id="fontWeightSlider" min="1" max="1000" step="1" value="400" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700"/>
+                <span id="fontWeightValue" class="text-lg font-bold w-16 text-right">400</span>
+            </div>
         </div>
     </section>
 
@@ -480,6 +479,26 @@
     </section>
 
 </main>
+
+<script>
+    // Get references to the slider, value display, and the text to be adjusted
+    const fontWeightSlider = document.getElementById('fontWeightSlider');
+    const fontWeightValue = document.getElementById('fontWeightValue');
+    const adjustableText = document.getElementById('adjustableText');
+
+    // Function to update the text's font weight and display the value
+    function updateFontWeight() {
+        const weight = fontWeightSlider.value;
+        adjustableText.style.fontWeight = weight;
+        fontWeightValue.textContent = weight;
+    }
+
+    // Add an event listener to the slider to call the update function on input
+    fontWeightSlider.addEventListener('input', updateFontWeight);
+
+    // Set initial font weight when the page loads
+    document.addEventListener('DOMContentLoaded', updateFontWeight);
+</script>
 
 </body>
 </html>
