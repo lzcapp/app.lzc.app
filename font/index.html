@@ -1,251 +1,485 @@
-<!-- By RainySummer | https:/lzc.app | hi@lzc.app -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>网页字体/色彩测试 Font/Color Test - LZC.app APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/image/ico/favicon.ico?v=47xGW9oLAB">
+    <!-- Link to Tailwind CSS CDN for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Optional: Add Google Fonts for Inter, a widely used and readable font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Custom styles for specific font features, @font-face rules, and overrides not easily handled by Tailwind -->
+    <style>
+        /* Global body font setting, overridden by Inter if loaded and font-inter class is used */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* @font-face rules imported from the provided styles.css */
+        @font-face {
+            font-family: "FiraCode";
+            src: url("./fonts/FiraCode-VF.woff2") format("woff2");
+        }
+
+        @font-face {
+            font-family: "gilbert-color";
+            src: url("./fonts/l.woff2") format("woff2"), url("./fonts/d.woff") format("woff"), url("./fonts/a.otf") format("opentype");
+            font-display: auto;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Color Dot';
+            src: url("./fonts/ColorDot.otf") format("opentype");
+        }
+
+        @font-face {
+            font-family: "Pixelambacht Color";
+            src: url("./fonts/PixelambachtColor.ttf");
+        }
+
+        @font-face {
+            font-family: "Pixelambacht Color COLR";
+            src: url("./fonts/PixelambachtColor-colr.ttf");
+        }
+
+        @font-face {
+            font-family: "Pixelambacht Color SBIX";
+            src: url("./fonts/PixelambachtColor-sbix.ttf");
+        }
+
+        @font-face {
+            font-family: "Pixelambacht Color SVG";
+            src: url("./fonts/PixelambachtColor-svg.ttf");
+        }
+
+        @font-face {
+            font-family: "Twemoji SVG";
+            src: url("./fonts/emoji/TwitterColorEmoji-SVGinOT.ttf");
+        }
+
+        @font-face {
+            font-family: "Twemoji CBDT";
+            src: url("./fonts/emoji/TwitterColorEmojiCBDT.ttf");
+        }
+
+        @font-face {
+            font-family: "Twemoji";
+            src: url("./fonts/emoji/TwemojiMozilla.ttf");
+        }
+
+        /* Explicit font-weight classes for comprehensive testing, complementing Tailwind's */
+        .font-lighter {
+            font-weight: lighter;
+        }
+
+        .font-bolder {
+            font-weight: bolder;
+        }
+
+        .weight1 {
+            font-weight: 100;
+        }
+
+        .weight2 {
+            font-weight: 200;
+        }
+
+        .weight3 {
+            font-weight: 300;
+        }
+
+        .weight4 {
+            font-weight: 400;
+        }
+
+        .weight5 {
+            font-weight: 500;
+        }
+
+        .weight6 {
+            font-weight: 600;
+        }
+
+        .weight7 {
+            font-weight: 700;
+        }
+
+        .weight8 {
+            font-weight: 800;
+        }
+
+        .weight9 {
+            font-weight: 900;
+        }
+
+        /* Styles for demonstrating specific color font technologies.
+           Their actual rendering depends on browser support and font availability. */
+        .color-test-colr {
+            font-family: "Pixelambacht Color COLR", "Pixelambacht Color";
+            font-feature-settings: "clig" off, "liga" off; /* Example: Adjust font feature settings */
+            font-variant-ligatures: no-common-ligatures;
+            color: #1a73e8; /* Example color, ensure good contrast */
+        }
+
+        .color-test-svg {
+            font-family: "Pixelambacht Color SVG", "Pixelambacht Color";
+            color: #d90062; /* Example color */
+        }
+
+        .color-test-cbdt {
+            font-family: "Pixelambacht Color CBDT", "Pixelambacht Color";
+            color: #27d900; /* Example color */
+        }
+
+        .color-test-sbix {
+            font-family: "Pixelambacht Color SBIX", "Pixelambacht Color";
+            color: #008cd9; /* Example color */
+        }
+
+        /* Specific font-families for the color font examples */
+        #color {
+            font-family: gilbert-color, sans-serif;
+            font-style: normal;
+        }
+
+        #color2 {
+            font-family: 'Color Dot', sans-serif;
+        }
+
+        /* Specific font-families for emoji rendering tests */
+        #emoji {
+            font-family: emoji, "Pixelambacht Color";
+        }
+
+        #colr {
+            font-family: Twemoji, "Pixelambacht Color";
+        }
+
+        #svg {
+            font-family: "Twemoji SVG", "Pixelambacht Color";
+        }
+
+        #cbdt {
+            font-family: "Twemoji CBDT", "Pixelambacht Color";
+        }
+
+        /* Table cell padding and border for consistency */
+        .table-cell-style {
+            padding: 0.5rem; /* Equivalent to Tailwind's p-2 */
+            border: 1px solid theme('colors.gray.300'); /* Soft gray border */
+        }
+    </style>
+    <!-- Favicon link, using the original provided path -->
+    <link rel="shortcut icon" href="../bsod/ico/favicon.ico?v=47xGW9oLAB">
 </head>
-<body>
-<div id="header">
-    <a href="https://www.lzc.app" target="_blank">LZC.app</a>&nbsp;&nbsp;🔗
-    <br/>
-    <a href="https://app.lzc.app/browser/" target="_blank">浏览器内核测试 Browser Info</a>&nbsp;&nbsp;🔗
-</div>
-<div class="weight">
-    <h2>多字重测试</h2>
-    <br/>
-    <div id="weight-p1">
-        <span class="weight1">Weight 100: 多字重测试</span><br/>
-        <span class="weight2">Weight 200: 多字重测试</span><br/>
-        <span class="weight3">Weight 300: 多字重测试</span><br/>
-        <span class="weight4">Weight 400: 多字重测试</span><br/>
-        <span class="weight5">Weight 500: 多字重测试</span><br/>
-        <span class="weight6">Weight 600: 多字重测试</span><br/>
-        <span class="weight7">Weight 700: 多字重测试</span><br/>
-        <span class="weight8">Weight 800: 多字重测试</span><br/>
-        <span class="weight9">Weight 900: 多字重测试</span><br/>
-        <br/>
-        <table>
-            <tr>
-                <th class="weight1">字</th>
-                <th class="weight2">字</th>
-                <th class="weight3">字</th>
-                <th class="weight4">字</th>
-                <th class="weight5">字</th>
-                <th class="weight6">字</th>
-                <th class="weight7">字</th>
-                <th class="weight8">字</th>
-                <th class="weight9">字</th>
-            </tr>
-            <tr>
-                <td class="weight1">Aa</td>
-                <td class="weight2">Aa</td>
-                <td class="weight3">Aa</td>
-                <td class="weight4">Aa</td>
-                <td class="weight5">Aa</td>
-                <td class="weight6">Aa</td>
-                <td class="weight7">Aa</td>
-                <td class="weight8">Aa</td>
-                <td class="weight9">Aa</td>
-            </tr>
-        </table>
-    </div>
-    <br/>
-    <div id="weight-p2">
-        <span class="weightlg">lighter: 多字重测试</span><br/>
-        <span class="weightnr">normal: 多字重测试</span><br/>
-        <span class="weightbl">bold: 多字重测试</span><br/>
-        <span class="weightbr">bolder: 多字重测试</span><br/><br/>
-        <table>
-            <tr>
-                <th class="weightlg">字</th>
-                <th class="weightnr">字</th>
-                <th class="weightbl">字</th>
-                <th class="weightbr">字</th>
-            </tr>
-            <tr>
-                <td class="weightlg">Aa</td>
-                <td class="weightnr">Aa</td>
-                <td class="weightbl">Aa</td>
-                <td class="weightbr">Aa</td>
-            </tr>
-        </table>
-    </div>
-    <br/>
-    <div class="color-font">
-        <h2>彩色字体</h2>
-        <br/>
-        <h3>标准测试</h3>
-        <table class="color-test-table">
-            <tr>
-                <td>System</td>
-                <td>&emsp;&emsp;&emsp;</td>
-                <td>N/A</td>
-                <td>&emsp;&emsp;&emsp;</td>
-                <td id="emoji">&#128539;</td>
-            </tr>
-            <tr>
-                <td>Microsoft COLR/CPAL</td>
-                <td></td>
-                <td class="color-test-colr">x</td>
-                <td></td>
-                <td id="colr">&#128539;</td>
-            </tr>
-            <tr>
-                <td>Adobe/Mozilla SVG</td>
-                <td></td>
-                <td class="color-test-svg">x</td>
-                <td></td>
-                <td id="svg">&#128539;</td>
-            </tr>
-            <tr>
-                <td>Google CBDT/CBLC</td>
-                <td></td>
-                <td class="color-test-cbdt">x</td>
-                <td></td>
-                <td id="cbdt">&#128539;</td>
-            </tr>
-            <tr>
-                <td>Apple SBIX</td>
-                <td></td>
-                <td class="color-test-sbix">x</td>
-                <td></td>
-                <td>N/A</td>
-            </tr>
-        </table>
-        <br/>
-        <h3>示例</h3>
-        <div id="color">
-            <p>The quick brown fox jumps over the lazy dog.</p>
+<!-- Apply global styles: light gray background, dark text, Inter font, antialiased for smoother text rendering -->
+<body class="bg-gray-100 text-gray-800 p-4 font-inter antialiased">
+
+<!-- Header section: centered text, padding, bottom margin -->
+<header id="header" class="text-center py-4 mb-8 bg-white rounded-lg shadow-sm">
+    <a href="https://www.lzc.app" target="_blank"
+       class="text-blue-600 hover:underline hover:text-blue-800 transition-colors duration-200">LZC.app</a>&nbsp;&nbsp;🔗
+    <br class="mb-2"/>
+    <a href="https://app.lzc.app/browser/" target="_blank"
+       class="text-blue-600 hover:underline hover:text-blue-800 transition-colors duration-200">浏览器内核测试 Browser
+        Info</a>&nbsp;&nbsp;🔗
+</header>
+
+<!-- Main content container: max-w-4xl, horizontally centered, white background, padding, rounded corners, shadow, bottom margin -->
+<main class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mb-8">
+
+    <!-- Multiple Font Weight Test Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-semibold m-8 text-center">多字重测试 (Font Weight Test)</h2>
+        <!-- Added max-w-2xl and mx-auto to center and constrain content width -->
+        <div id="weight-p1" class="mb-6 max-w-2xl mx-auto text-center">
+            <!-- Each span demonstrates a different font weight using custom weight classes -->
+            <span class="weight1 text-lg">Weight 100: 多字重测试</span><br/>
+            <span class="weight2 text-lg">Weight 200: 多字重测试</span><br/>
+            <span class="weight3 text-lg">Weight 300: 多字重测试</span><br/>
+            <span class="weight4 text-lg">Weight 400: 多字重测试</span><br/>
+            <span class="weight5 text-lg">Weight 500: 多字重测试</span><br/>
+            <span class="weight6 text-lg">Weight 600: 多字重测试</span><br/>
+            <span class="weight7 text-lg">Weight 700: 多字重测试</span><br/>
+            <span class="weight8 text-lg">Weight 800: 多字重测试</span><br/>
+            <span class="weight9 text-lg">Weight 900: 多字重测试</span><br/>
+            <br/>
+            <!-- Table demonstrating font weights across Chinese and English characters -->
+            <table class="w-full text-center border-collapse">
+                <thead>
+                <tr>
+                    <th class="table-cell-style weight1">字</th>
+                    <th class="table-cell-style weight2">字</th>
+                    <th class="table-cell-style weight3">字</th>
+                    <th class="table-cell-style weight4">字</th>
+                    <th class="table-cell-style weight5">字</th>
+                    <th class="table-cell-style weight6">字</th>
+                    <th class="table-cell-style weight7">字</th>
+                    <th class="table-cell-style weight8">字</th>
+                    <th class="table-cell-style weight9">字</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="table-cell-style weight1">Aa</td>
+                    <td class="table-cell-style weight2">Aa</td>
+                    <td class="table-cell-style weight3">Aa</td>
+                    <td class="table-cell-style weight4">Aa</td>
+                    <td class="table-cell-style weight5">Aa</td>
+                    <td class="table-cell-style weight6">Aa</td>
+                    <td class="table-cell-style weight7">Aa</td>
+                    <td class="table-cell-style weight8">Aa</td>
+                    <td class="table-cell-style weight9">Aa</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="color2">
-            <p>The quick brown fox jumps over the lazy dog.</p>
+
+        <!-- Added max-w-2xl and mx-auto to center and constrain content width -->
+        <div id="weight-p2" class="mb-6 max-w-2xl mx-auto text-center">
+            <!-- Relative font weight demonstrations using custom classes -->
+            <span class="font-lighter text-lg">lighter: 多字重测试</span><br/>
+            <span class="font-normal text-lg">normal: 多字重测试</span><br/>
+            <span class="font-bold text-lg">bold: 多字重测试</span><br/>
+            <span class="font-bolder text-lg">bolder: 多字重测试</span><br/><br/>
+            <!-- Table for relative font weights -->
+            <table class="w-full text-center border-collapse">
+                <thead>
+                <tr>
+                    <th class="table-cell-style font-lighter">字</th>
+                    <th class="table-cell-style font-normal">字</th>
+                    <th class="table-cell-style font-bold">字</th>
+                    <th class="table-cell-style font-bolder">字</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="table-cell-style font-lighter">Aa</td>
+                    <td class="table-cell-style font-normal">Aa</td>
+                    <td class="table-cell-style font-bold">Aa</td>
+                    <td class="table-cell-style font-bolder">Aa</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <br/>
-    <div class="emoji">
-        <h2>Emoji</h2>
-        <br/>
-        <table class="emoji-list">
+    </section>
+
+    <hr class="mb-12"/>
+
+    <!-- Color Font Test Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-semibold m-8 text-center">彩色字体 (Color Fonts)</h2>
+        <h3 class="text-xl font-medium mb-2 text-center">标准测试 (Standard Test)</h3>
+        <!-- Added max-w-xl and mx-auto to center and constrain table width -->
+        <table class="w-full text-left border-collapse color-test-table max-w-xl mx-auto text-center">
+            <thead>
             <tr>
-                <td>Emoji 1.0</td>
-                <td>&emsp;&emsp;&emsp;</td>
-                <td>&#128512;</td>
+                <th class="table-cell-style">Type</th>
+                <th class="table-cell-style"></th>
+                <th class="table-cell-style">Test Character</th>
+                <th class="table-cell-style"></th>
+                <th class="table-cell-style">Emoji</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="table-cell-style">System</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style">N/A</td>
+                <td class="table-cell-style"></td>
+                <td id="emoji" class="table-cell-style text-2xl">&#128539;</td>
             </tr>
             <tr>
-                <td>Emoji 2.0</td>
-                <td></td>
-                <td>&#128065;&#65039;&#8205;&#128488;&#65039;</td>
+                <td class="table-cell-style">Microsoft COLR/CPAL</td>
+                <td class="table-cell-style"></td>
+                <td class="color-test-colr table-cell-style text-2xl">x</td>
+                <td class="table-cell-style"></td>
+                <td id="colr" class="table-cell-style text-2xl">&#128539;</td>
             </tr>
             <tr>
-                <td>Emoji 3.0</td>
-                <td></td>
-                <td>&#129315;</td>
+                <td class="table-cell-style">Adobe/Mozilla SVG</td>
+                <td class="table-cell-style"></td>
+                <td class="color-test-svg table-cell-style text-2xl">x</td>
+                <td class="table-cell-style"></td>
+                <td id="svg" class="table-cell-style text-2xl">&#128539;</td>
             </tr>
             <tr>
-                <td>Emoji 4.0</td>
-                <td></td>
-                <td>&#128113;&#8205;&#9792;&#65039;</td>
+                <td class="table-cell-style">Google CBDT/CBLC</td>
+                <td class="table-cell-style"></td>
+                <td class="color-test-cbdt table-cell-style text-2xl">x</td>
+                <td class="table-cell-style"></td>
+                <td id="cbdt" class="table-cell-style text-2xl">&#128539;</td>
             </tr>
             <tr>
-                <td>Emoji 5.0</td>
-                <td></td>
-                <td>&#129321;</td>
+                <td class="table-cell-style">Apple SBIX</td>
+                <td class="table-cell-style"></td>
+                <td class="color-test-sbix table-cell-style text-2xl">x</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style">N/A</td>
             </tr>
-            <tr>
-                <td>Emoji 11.0</td>
-                <td></td>
-                <td>&#129392;</td>
-            </tr>
-            <tr>
-                <td>Emoji 12.0</td>
-                <td></td>
-                <td>&#129393;</td>
-            </tr>
-            <tr>
-                <td>Emoji 12.1</td>
-                <td></td>
-                <td>&#129489;&#8205;&#129456;</td>
-            </tr>
-            <tr>
-                <td>Emoji 13.0</td>
-                <td></td>
-                <td>&#129394;</td>
-            </tr>
-            <tr>
-                <td>Emoji 13.1</td>
-                <td></td>
-                <td>&#128558;&#8205;&#128168;</td>
-            </tr>
-            <tr>
-                <td>Emoji 14.0</td>
-                <td></td>
-                <td>&#129760;</td>
-            </tr>
-            <tr>
-                <td>Emoji 15.0</td>
-                <td></td>
-                <td>&#129768;</td>
-            </tr>
-            <tr>
-                <td>Emoji 15.1</td>
-                <td></td>
-                <td>&#x1F642;</td>
-            </tr>
-            <tr>
-                <td>Emoji 16.0</td>
-                <td></td>
-                <td>&#x1FAE9;</td>
-            </tr>
-            <tr>
-                <td>Flags</td>
-                <td></td>
-                <td>&#127464;&#127475;&ensp;&#127469;&#127472;&ensp;&#127474;&#127476;&ensp;&#x1F1E8&#x1F1F6</td>
-            </tr>
+            </tbody>
         </table>
-    </div>
-    <br/>
-    <div>
-        <h2>Unicode</h2>
         <br/>
-        <table class="emoji-list">
+        <h3 class="text-xl font-medium mb-2 text-center">示例 (Example)</h3>
+        <!-- Added max-w-xl and mx-auto to center and constrain content width -->
+        <div id="color" class="mb-4 p-4 border rounded-md max-w-xl mx-auto">
+            <p class="text-lg">The quick brown fox jumps over the lazy dog.</p>
+        </div>
+        <!-- Added max-w-xl and mx-auto to center and constrain content width -->
+        <div id="color2" class="p-4 border rounded-md max-w-xl mx-auto">
+            <p class="text-lg">The quick brown fox jumps over the lazy dog.</p>
+        </div>
+    </section>
+
+    <!-- Emoji Test Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-semibold m-8 text-center">Emoji</h2>
+        <!-- Added max-w-xl and mx-auto to center and constrain table width -->
+        <table class="w-full text-left border-collapse color-test-table max-w-xl mx-auto text-center">
+            <thead>
             <tr>
-                <td>Apple logo</td>
-                <td>&emsp;&emsp;&emsp;</td>
-                <td></td>
+                <th class="table-cell-style">Emoji Version</th>
+                <th class="table-cell-style"></th>
+                <th class="table-cell-style">Emoji</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="table-cell-style">Emoji 1.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#128512;</td>
             </tr>
             <tr>
-                <td>Beats 1 logo</td>
-                <td></td>
-                <td></td>
+                <td class="table-cell-style">Emoji 2.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#128065;&#65039;&#8205;&#128488;&#65039;</td>
             </tr>
             <tr>
-                <td>Xiaomi</td>
-                <td></td>
-                <td></td>
+                <td class="table-cell-style">Emoji 3.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129315;</td>
             </tr>
             <tr>
-                <td>MIUI logo</td>
-                <td></td>
-                <td></td>
+                <td class="table-cell-style">Emoji 4.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#128113;&#8205;&#9792;&#65039;</td>
             </tr>
             <tr>
-                <td>Windows logo</td>
-                <td></td>
-                <td></td>
+                <td class="table-cell-style">Emoji 5.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129321;</td>
             </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 11.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129392;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 12.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129393;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 12.1</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129489;&#8205;&#129456;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 13.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129394;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 13.1</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#128558;&#8205;&#128168;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 14.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129760;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 15.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#129768;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 15.1</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#x1F642;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 16.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#x1FAE9;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Emoji 17.0</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#x1FAEA;</td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Flags</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl">&#127464;&#127475;&ensp;&#127469;&#127472;&ensp;&#127474;&#127476;&ensp;&#x1F1F9;&#x1F1FC;&ensp;&#x1F1E8;&#x1F1F6;</td>
+            </tr>
+            </tbody>
         </table>
-    </div>
-    <br/>
-    <div>
-        <h2>Color Management</h2>
-        <br/>
-        <img src="android_p3.png" alt="android_p3"  width="200vw"/>
-    </div>
-</div>
+    </section>
+
+    <!-- Unicode Test Section -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-semibold m-8 text-center">Unicode</h2>
+        <!-- Added max-w-xl and mx-auto to center and constrain table width -->
+        <table class="w-full text-left border-collapse color-test-table max-w-xl mx-auto text-center">
+            <thead>
+            <tr>
+                <th class="table-cell-style">Character Name</th>
+                <th class="table-cell-style"></th>
+                <th class="table-cell-style">Character</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="table-cell-style">Apple logo</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl"></td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Beats 1 logo</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl"></td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Xiaomi</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl"></td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">MIUI logo</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl"></td>
+            </tr>
+            <tr>
+                <td class="table-cell-style">Windows logo</td>
+                <td class="table-cell-style"></td>
+                <td class="table-cell-style text-2xl"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Color Management Section -->
+    <section>
+        <h2 class="text-2xl font-semibold m-8 text-center">Color Management</h2>
+        <!-- Image already centered with responsive sizing -->
+        <img src="android_p3.png" alt="android_p3 - Android P3 color gamut test image"
+             class="w-full md:w-1/2 lg:w-1/3 mx-auto block rounded-md shadow-sm"/>
+    </section>
+
+</main>
+
 </body>
 </html>
