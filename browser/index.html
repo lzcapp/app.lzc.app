@@ -416,7 +416,9 @@
                 languageElement.innerHTML = ''; // Clear existing content
                 if (window.navigator.languages && window.navigator.languages.length > 0) {
                     window.navigator.languages.forEach((lang, index) => {
-                        languageElement.append(createIconSpan("fa-fw fa-solid fa-language", lang));
+                        const span = document.createElement('span');
+                        span.append(createIconSpan("fa-fw fa-solid fa-language", lang));
+                        languageElement.append(span);
                         if (index < window.navigator.languages.length - 1) {
                             languageElement.innerHTML += '&ensp;';
                         }
